@@ -57,8 +57,8 @@ public class InterruptThreadTest {
     void runTest() throws Exception {
         Thread vthread = Thread.ofVirtual().name("VThread").start(pinnedTask);
         // wait for target virtual thread to reach the expected waiting state
-        synchronized (lock) {
-            while (!target_is_ready || vthread.getState() != Thread.State.WAITING) {
+        while (!target_is_ready) {
+           synchronized (lock) {
               lock.wait(1);
             }
         }
